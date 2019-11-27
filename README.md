@@ -1,5 +1,5 @@
 # SimCor
-# non-correlated and correlated (Cholesky transformation) price/value simulation
+### non-correlated and correlated (Cholesky transformation) price/value simulation
 
 1
 The first function of this package allow user to simulate the evolution of the price/value of an index or asset. It can be made applying two different techniques:
