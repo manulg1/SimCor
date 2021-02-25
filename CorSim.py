@@ -109,8 +109,13 @@ class cor_simulation:
         self.prices = prices
 
     # Uses the asset’s daily volatility to make X simulations of the Y following values.
-    def monte_carlo_cor_sim(self, cor_m, num_simulations, predicted_days):
+    def monte_carlo_cor_sim(self, num_simulations, predicted_days,  corm=0):
         results=[]
+        
+        if corm == 0:
+            cor_m = self.prices.tail(48).corr()
+        else:
+            cor_m = corm
         
         # Simulate prices for each class
         for i in range(len(self.returns.columns)):
@@ -148,8 +153,13 @@ class cor_simulation:
         self.results_mc = results
 
     # gbm uses the concept of Geometric Brownian Motion to make X simulations of the Y following values
-    def brownian_motion_cor_sim(self, cor_m, num_simulations, predicted_days):
+    def brownian_motion_cor_sim(self, num_simulations, predicted_days,  corm=0):
         results=[]
+        
+        if corm == 0:
+            cor_m = self.prices.tail(48).corr()
+        else:
+            cor_m = corm
         
         # Simulate prices for each class
         for i in range(len(self.returns.columns)):
