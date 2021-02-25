@@ -101,19 +101,20 @@ Correlated simulations - multi index
 Applying Cholesky: https://quantcorner.wordpress.com/2018/02/09/generation-of-correlated-random-numbers-using-python/
 '''
 
-# Now the the init data is a dataframe with the price evolution of all the correlated index and another one with their respective returns
+# Now the the init data is a dataframe with the price evolution of all the correlated index and another one with their respective returns. Furthermore we have to specify the number of observations to calculate the correlation.
 # Then to apply monte carlo or gbm correlated simulation the correlation matrix will be needed
 class cor_simulation:
-    def __init__(self, returns, prices):
+    def __init__(self, returns, prices, cor_days):
         self.returns = returns
         self.prices = prices
+        self.cordays = cor_days
 
     # Uses the asset’s daily volatility to make X simulations of the Y following values.
     def monte_carlo_cor_sim(self, num_simulations, predicted_days,  corm=0):
         results=[]
         
         if corm == 0:
-            cor_m = self.prices.tail(48).corr()
+            cor_m = self.prices.tail(self.cordays).corr()
         else:
             cor_m = corm
         
@@ -157,7 +158,7 @@ class cor_simulation:
         results=[]
         
         if corm == 0:
-            cor_m = self.prices.tail(48).corr()
+            cor_m = self.prices.tail(self.cordays).corr()
         else:
             cor_m = corm
         
